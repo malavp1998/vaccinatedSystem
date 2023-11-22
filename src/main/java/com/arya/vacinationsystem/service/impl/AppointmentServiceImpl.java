@@ -60,6 +60,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         try {
             Optional<User> user = userRepository.findById(userId);
             Optional<VaccinationCenter> vaccinationCenter = vaccinationCenterRepository.findById(centerId);
+//            System.out.println(user.isPresent() + " "+vaccinationCenter.isPresent());
             if (user.isPresent() && vaccinationCenter.isPresent()) {
 
                 LocalTime currentTime = LocalTime.now();
@@ -83,7 +84,10 @@ public class AppointmentServiceImpl implements AppointmentService {
             }
 
         } catch (Exception e) {
+
             System.out.println("Exception in bookAppointment "+ e.getMessage());
+            throw e;
+
         }
         return null;
 
