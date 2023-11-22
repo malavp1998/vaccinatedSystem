@@ -19,22 +19,17 @@ public class VaccinationCenterController {
     private VaccinationCenterService vaccinationCenterService;
 
     @PostMapping("/register")
-    private ResponseEntity<?> registerCenter(@RequestBody VaccinationCenter vaccinationCenter)
-    {
+    private ResponseEntity<?> registerCenter(@RequestBody VaccinationCenter vaccinationCenter) {
 
         try {
 
             VaccinationCenter createdCenter = vaccinationCenterService.registerCenter(vaccinationCenter);
-            if(createdCenter!=null)
-            {
+            if (createdCenter != null) {
                 return ResponseEntity.status(HttpStatus.CREATED).body(createdCenter);
-            }
-            else {
+            } else {
                 return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Exception in registerCenter " + e.getMessage());
 
         }
@@ -42,26 +37,20 @@ public class VaccinationCenterController {
     }
 
     @GetMapping("/cityname/{cityName}")
-    private List<VaccinationCenter> getCenterByCityName(@PathVariable("cityName") String cityName)
-    {
+    private List<VaccinationCenter> getCenterByCityName(@PathVariable("cityName") String cityName) {
         try {
-             return vaccinationCenterService.getCenterByCityName(cityName);
-        }
-        catch (Exception e)
-        {
+            return vaccinationCenterService.getCenterByCityName(cityName);
+        } catch (Exception e) {
             System.out.println("Exception in getCenterByCityName " + e.getMessage());
         }
         return null;
     }
 
     @GetMapping("/pincode/{pincode}")
-    private List<VaccinationCenter> getCenterByPincode(@PathVariable("pincode") String pincode)
-    {
+    private List<VaccinationCenter> getCenterByPincode(@PathVariable("pincode") String pincode) {
         try {
             return vaccinationCenterService.getCenterByPinode(pincode);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Exception in getCenterByPincode " + e.getMessage());
         }
         return null;

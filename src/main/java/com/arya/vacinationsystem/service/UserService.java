@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 public interface UserService {
 
     User registerUser(long aadharNumber);
+
     boolean isUserVaccinated(long aadharNumber);
 
     User marKVaccinate(long aadharNumber);
 
 }
+

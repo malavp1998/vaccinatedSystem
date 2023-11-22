@@ -10,8 +10,6 @@ import java.util.List;
 
 @Service
 public interface AppointmentService {
-
-
     Appointment bookAppointment(long aadharNumber, long centerId) throws Exception;
 
     List<Appointment> getAppointmentsAtStateLevel(String stateName);

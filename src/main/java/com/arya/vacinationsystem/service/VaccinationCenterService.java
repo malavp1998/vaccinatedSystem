@@ -9,7 +9,9 @@ import java.util.List;
 public interface VaccinationCenterService {
 
     VaccinationCenter registerCenter(VaccinationCenter vaccinationCenter);
+
     List<VaccinationCenter> getCenterByCityName(String cityName);
+
     List<VaccinationCenter> getCenterByPinode(String pincode);
 
 

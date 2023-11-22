@@ -31,9 +31,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     private VaccinationCenterRepository vaccinationCenterRepository;
 
     @Autowired
-    public AppointmentServiceImpl(UserRepository userRepository, AppointmentRepository appointmentRepository, VaccinationCenterRepository vaccinationCenterRepository)
-    {
-        this.appointmentRepository =appointmentRepository;
+    public AppointmentServiceImpl(UserRepository userRepository, AppointmentRepository appointmentRepository, VaccinationCenterRepository vaccinationCenterRepository) {
+        this.appointmentRepository = appointmentRepository;
         this.userRepository = userRepository;
         this.vaccinationCenterRepository = vaccinationCenterRepository;
 
@@ -45,7 +44,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     private boolean isCenterCapacityAvailable(VaccinationCenter center, LocalDateTime currentLocalDateTime) {
-      //  LocalDateTime oneHourAgo = LocalDateTime.of(currentLocalDateTime.getHour() - 1, currentLocalDateTime.getMinute(), currentLocalDateTime.getSecond());
+        //  LocalDateTime oneHourAgo = LocalDateTime.of(currentLocalDateTime.getHour() - 1, currentLocalDateTime.getMinute(), currentLocalDateTime.getSecond());
         final int Hours = 1;
         LocalDateTime oneHoursBefore = currentLocalDateTime.minusHours(Hours);
         long countAppointmentsWithinLastHour = center.getAppointments().stream()
@@ -67,16 +66,11 @@ public class AppointmentServiceImpl implements AppointmentService {
                 LocalDateTime currentLocalDateTime = LocalDateTime.now();
                 if (user.get().isVaccinated()) {
                     throw new IllegalArgumentException("User is already vaccinated and cannot book a new appointment.");
-                }
-
-                else if (!isCenterOpen(vaccinationCenter.get(), currentTime)) {
+                } else if (!isCenterOpen(vaccinationCenter.get(), currentTime)) {
                     throw new IllegalArgumentException("Center is closed and cannot book a new appointment.");
-                }
-
-                else if (!isCenterCapacityAvailable(vaccinationCenter.get(), currentLocalDateTime)) {
+                } else if (!isCenterCapacityAvailable(vaccinationCenter.get(), currentLocalDateTime)) {
                     throw new IllegalArgumentException("Center capacity is full and cannot book a new appointment.");
-                }
-                else {
+                } else {
                     Appointment newAppointment = new Appointment(user.get(), vaccinationCenter.get(), LocalDateTime.now(), false);
                     appointmentRepository.save(newAppointment);
                     return newAppointment;
@@ -85,7 +79,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         } catch (Exception e) {
 
-            System.out.println("Exception in bookAppointment "+ e.getMessage());
+            System.out.println("Exception in bookAppointment " + e.getMessage());
             throw e;
 
         }

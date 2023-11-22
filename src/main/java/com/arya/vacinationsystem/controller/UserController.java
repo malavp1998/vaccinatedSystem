@@ -15,21 +15,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register/{aadharNumber}")
-    private ResponseEntity<?> registerUser(@PathVariable("aadharNumber") String aadharNumber)
-    {
+    private ResponseEntity<?> registerUser(@PathVariable("aadharNumber") String aadharNumber) {
 
         try {
             User createdUser = userService.registerUser(Long.parseLong(aadharNumber));
-            if(createdUser!=null)
-            {
+            if (createdUser != null) {
                 return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-            }
-            else {
+            } else {
                 return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Exception in registerUser " + e.getMessage());
 
         }
@@ -37,28 +32,22 @@ public class UserController {
     }
 
     @GetMapping("/vaccinated/{aadharNumber}")
-    private boolean isUserVaccinated(@PathVariable("aadharNumber") String aadharNumber)
-    {
+    private boolean isUserVaccinated(@PathVariable("aadharNumber") String aadharNumber) {
         try {
-           return userService.isUserVaccinated(Long.parseLong(aadharNumber));
-        }
-        catch (Exception e)
-        {
+            return userService.isUserVaccinated(Long.parseLong(aadharNumber));
+        } catch (Exception e) {
             System.out.println("Exception in isUserVaccinated " + e.getMessage());
         }
         return false;
     }
 
     @PatchMapping("/vaccinate/{aadharNumber}")
-    private User vaccinate(@PathVariable("aadharNumber") String aadharNumber)
-    {
+    private User vaccinate(@PathVariable("aadharNumber") String aadharNumber) {
         try {
             return userService.marKVaccinate(Long.parseLong(aadharNumber));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Exception in vaccinate " + e.getMessage());
         }
-       return null;
+        return null;
     }
 }
